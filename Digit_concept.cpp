@@ -26,7 +26,8 @@ int reverse_digit(int num) {
     return reverse;
 }
 
-bool checkPalindrom(int num , int reverse){
+bool checkPalindrom(int num, int reverse) {
+    return num == reverse;
 }
 int main() {
     int num;
@@ -40,10 +41,15 @@ int main() {
     switch(choice){
         case 1:
             cout << "The number of digits in num is: " << digits << endl;
-            
+            break;
         case 2:
             cout << "The reverse of number is: "<< setw(digits) << setfill('0') << reverse << endl;
-            break;  
+            break; 
+        case 3:
+            if (checkPalindrom(num, reverse)) cout << num << " is a palindrome." << endl;
+            else
+                cout << num << " is not a palindrome." << endl;
+             break; 
     }
 
     return 0;
