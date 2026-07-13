@@ -1,223 +1,241 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
-//-------------------- GCD --------------------
-void GCD()
+
+//---------------- PALINDROME ----------------
+void palindrome()
+{
+    int num, temp, rev = 0, digit;
+
+    cout << "Enter a number: ";
+    cin >> num;
+
+    temp = num;
+
+    while(temp != 0)
+    {
+        digit = temp % 10;
+        rev = rev * 10 + digit;
+        temp = temp / 10;
+    }
+
+    if(rev == num)
+        cout << num << " is a Palindrome Number."<<endl;
+    else
+        cout << num << " is NOT a Palindrome Number."<<endl;
+}
+
+//---------------- HCF / GCD ----------------
+void hcf()
 {
     int a, b;
 
-    cout << "Enter two numbers : ";
+    cout << "Enter two numbers: ";
     cin >> a >> b;
 
     while(b != 0)
     {
-        int temp = b;
-        b = a % b;
-        a = temp;
+        int rem = a % b;
+        a = b;
+        b = rem;
     }
 
-    cout << "GCD = " << a << endl;
+    cout << "HCF = " << a<<endl;
 }
 
-//---------------- Armstrong ------------------
-
-void Armstrong()
+//---------------- ARMSTRONG ----------------
+void armstrong()
 {
-    int num, original, digit;
+    int num, temp, digit;
     int sum = 0;
 
-    cout << "Enter number : ";
+    cout << "Enter a number: ";
     cin >> num;
 
-    original = num;
+    int count = 0;
+    int copy = num;
 
-    while(num != 0)
+    while(copy != 0)
     {
-        digit = num % 10;
-        sum = sum + digit * digit * digit;
-        num = num / 10;
+        count++;
+        copy /= 10;
     }
 
-    if(sum == original)
-        cout << "Armstrong Number";
-    else
-        cout << "Not an Armstrong Number";
+    temp = num;
 
-    cout << endl;
+    while(temp != 0)
+    {
+        digit = temp % 10;
+        sum += pow(digit, count);
+        temp /= 10;
+    }
+
+    if(sum == num)
+        cout << num << " is an Armstrong Number.";
+    else
+        cout << num << " is NOT an Armstrong Number.";
 }
 
-//--------------- Divisors --------------------
-
-void Divisors()
+//---------------- DIVISORS ----------------
+void divisors()
 {
     int n;
 
-    cout << "Enter number : ";
+    cout << "Enter a number: ";
     cin >> n;
 
-    cout << "Divisors are : ";
+    cout << "Divisors are: ";
 
     for(int i = 1; i <= n; i++)
     {
         if(n % i == 0)
             cout << i << " ";
     }
-
-    cout << endl;
+    cout<<endl;
 }
 
-//-------------- nth Fibonacci ----------------
-
-void Fibonacci()
+//---------------- NTH FIBONACCI ----------------
+void nthFibonacci()
 {
     int n;
 
-    cout << "Enter n : ";
+    cout << "Enter n: ";
     cin >> n;
 
     if(n == 0)
     {
-        cout << 0 << endl;
+        cout << 0;
         return;
     }
 
     if(n == 1)
     {
-        cout << 1 << endl;
+        cout << 1;
         return;
     }
 
-    int first = 0;
-    int second = 1;
-    int next;
+    int a = 0, b = 1, c;
 
     for(int i = 2; i <= n; i++)
     {
-        next = first + second;
-        first = second;
-        second = next;
+        c = a + b;
+        a = b;
+        b = c;
     }
 
-    cout << "Fibonacci Number = " << second << endl;
+    cout << "Nth Fibonacci Number = " << b<<endl;
 }
 
-//--------- Position of Fibonacci -------------
-
-void Position()
+//---------------- POSITION OF FIBONACCI ----------------
+void fibonacciPosition()
 {
-    int n;
+    int num;
 
-    cout << "Enter Fibonacci Number : ";
-    cin >> n;
+    cout << "Enter Fibonacci Number: ";
+    cin >> num;
 
-    if(n == 0)
+    int a = 0, b = 1, c;
+    int position = 1;
+
+    if(num == 0)
     {
         cout << "Position = 0";
         return;
     }
 
-    int first = 0;
-    int second = 1;
-    int next;
-    int position = 1;
-
-    while(second < n)
+    while(b < num)
     {
-        next = first + second;
-        first = second;
-        second = next;
+        c = a + b;
+        a = b;
+        b = c;
         position++;
     }
 
-    if(second == n)
-        cout << "Position = " << position << endl;
+    if(b == num)
+        cout << "Position = " << position;
     else
-        cout << "Number is not present in Fibonacci Series" << endl;
+        cout << "Number is NOT present in Fibonacci Series.";
 }
 
-//--------------- Prime -----------------------
-
-void Prime()
+//---------------- PRIME ----------------
+void prime()
 {
     int n;
-    bool prime = true;
+    bool isPrime = true;
 
-    cout << "Enter number : ";
+    cout << "Enter a number: ";
     cin >> n;
 
     if(n <= 1)
-    {
-        prime = false;
-    }
-    else
-    {
-        for(int i = 2; i * i <= n; i++)
+        isPrime = false;
+
+    for(int i = 2; i * i <= n; i++){
+        if(n % i == 0)
         {
-            if(n % i == 0)
-            {
-                prime = false;
-                break;
-            }
+            isPrime = false;
+            break;
         }
     }
 
-    if(prime)
-        cout << "Prime Number";
+    if(isPrime)
+        cout << n << " is Prime.";
     else
-        cout << "Not Prime Number";
-
-    cout << endl;
+        cout << n << " is NOT Prime.";
 }
 
-//---------------- Main ------------------------
-
+//---------------- MAIN ----------------
 int main()
 {
     int choice;
 
-    cout << "========== MENU ==========\n";
-    cout << "1. GCD / HCF\n";
-    cout << "2. Armstrong Number\n";
-    cout << "3. Print All Divisors\n";
-    cout << "4. nth Fibonacci Number\n";
-    cout << "5. Position of Fibonacci Number\n";
-    cout << "6. Prime Number\n";
-    cout << "7. Exit\n";
+    cout << "\n========== MENU ==========\n";
+    cout << "1. Check Palindrome Number\n";
+    cout << "2. Find HCF / GCD\n";
+    cout << "3. Check Armstrong Number\n";
+    cout << "4. Print All Divisors\n";
+    cout << "5. Print Nth Fibonacci Number\n";
+    cout << "6. Find Position of Fibonacci Number\n";
+    cout << "7. Check Prime Number\n";
+    cout << "8. Exit\n";
 
-    cout << "\nEnter Choice : ";
+    cout << "\nEnter your choice: ";
     cin >> choice;
 
     switch(choice)
     {
         case 1:
-            GCD();
+            palindrome();
             break;
 
         case 2:
-            Armstrong();
+            hcf();
             break;
 
         case 3:
-            Divisors();
+            armstrong();
             break;
 
         case 4:
-            Fibonacci();
+            divisors();
             break;
 
         case 5:
-            Position();
+            nthFibonacci();
             break;
 
         case 6:
-            Prime();
+            fibonacciPosition();
             break;
 
         case 7:
-            cout << "Program Ended";
+            prime();
+            break;
+
+        case 8:
+            cout << "Thank You!";
             break;
 
         default:
-            cout << "Invalid Choice";
+            cout << "Invalid Choice!";
     }
 
     return 0;
