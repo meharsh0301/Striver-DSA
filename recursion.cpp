@@ -1,17 +1,17 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// 1. Print Name N Times
+//---------------- 1. Print Name N Times ----------------
 void printName(string name, int i, int n)
 {
     if(i > n)
         return;
 
-    cout << name << "\n";
+    cout << name << endl;
     printName(name, i + 1, n);
 }
 
-// 2. Print 1 to N
+//---------------- 2. Print 1 to N ----------------
 void print1ToN(int i, int n)
 {
     if(i > n)
@@ -21,7 +21,7 @@ void print1ToN(int i, int n)
     print1ToN(i + 1, n);
 }
 
-// 3. Print N to 1
+//---------------- 3. Print N to 1 ----------------
 void printNTo1(int n)
 {
     if(n == 0)
@@ -31,16 +31,16 @@ void printNTo1(int n)
     printNTo1(n - 1);
 }
 
-// 4. Sum of First N Numbers
-int sum(int n)
+//---------------- 4. Sum of First N Numbers ----------------
+int sumN(int n)
 {
     if(n == 0)
         return 0;
 
-    return n + sum(n - 1);
+    return n + sumN(n - 1);
 }
 
-// 5. Factorial
+//---------------- 5. Factorial ----------------
 int factorial(int n)
 {
     if(n == 0 || n == 1)
@@ -49,17 +49,30 @@ int factorial(int n)
     return n * factorial(n - 1);
 }
 
-// 6. Reverse Array
+//---------------- 6. Reverse Array ----------------
 void reverseArray(int arr[], int left, int right)
 {
     if(left >= right)
         return;
 
     swap(arr[left], arr[right]);
+
     reverseArray(arr, left + 1, right - 1);
 }
 
-// 7. Palindrome Check
+//---------------- 7. Fibonacci ----------------
+int fibonacci(int n)
+{
+    if(n == 0)
+        return 0;
+
+    if(n == 1)
+        return 1;
+
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+//---------------- 8. Palindrome Check ----------------
 bool palindrome(string str, int left, int right)
 {
     if(left >= right)
@@ -71,7 +84,7 @@ bool palindrome(string str, int left, int right)
     return palindrome(str, left + 1, right - 1);
 }
 
-// 8. Maximum Element in Array
+//---------------- 9. Maximum Element ----------------
 int maximum(int arr[], int n, int index)
 {
     if(index == n - 1)
@@ -79,13 +92,10 @@ int maximum(int arr[], int n, int index)
 
     int maxi = maximum(arr, n, index + 1);
 
-    if(arr[index] > maxi)
-        return arr[index];
-    else
-        return maxi;
+    return (arr[index] > maxi) ? arr[index] : maxi;
 }
 
-// 9. Print All Subsets
+//---------------- 10. Print All Subsets ----------------
 void printSubsets(int arr[], int n, int index, vector<int> &subset)
 {
     if(index == n)
@@ -97,30 +107,33 @@ void printSubsets(int arr[], int n, int index, vector<int> &subset)
         return;
     }
 
-    // Include current element
+    // Include
     subset.push_back(arr[index]);
     printSubsets(arr, n, index + 1, subset);
 
-    // Exclude current element
+    // Exclude
     subset.pop_back();
     printSubsets(arr, n, index + 1, subset);
 }
 
+//---------------- MAIN ----------------
 int main()
 {
     int choice;
 
-    cout << "\n===== RECURSION PROGRAMS =====\n";
+    cout << "\n========== RECURSION MENU ==========\n";
     cout << "1. Print Name N Times\n";
     cout << "2. Print 1 to N\n";
     cout << "3. Print N to 1\n";
     cout << "4. Sum of First N Numbers\n";
     cout << "5. Factorial\n";
     cout << "6. Reverse Array\n";
-    cout << "7. Palindrome Check\n";
-    cout << "8. Maximum in Array\n";
-    cout << "9. Print All Subsets\n";
-    cout << "Enter your choice: ";
+    cout << "7. Fibonacci Number\n";
+    cout << "8. Palindrome Check\n";
+    cout << "9. Maximum Element in Array\n";
+    cout << "10. Print All Subsets\n";
+
+    cout << "\nEnter your choice: ";
     cin >> choice;
 
     switch(choice)
@@ -130,9 +143,9 @@ int main()
             string name;
             int n;
 
-            cin.ignore(); // Ignore leftover newline
+            cin.ignore();
 
-            cout << "Enter name: ";
+            cout << "Enter Name: ";
             getline(cin, name);
 
             cout << "Enter n: ";
@@ -145,100 +158,146 @@ int main()
         case 2:
         {
             int n;
+
             cout << "Enter n: ";
             cin >> n;
 
             print1ToN(1, n);
-            cout << endl;
             break;
         }
 
         case 3:
         {
             int n;
+
             cout << "Enter n: ";
             cin >> n;
 
             printNTo1(n);
-            cout << endl;
             break;
         }
 
         case 4:
         {
             int n;
+
             cout << "Enter n: ";
             cin >> n;
 
-            cout << "Sum = " << sum(n) << endl;
+            cout << "Sum = " << sumN(n);
             break;
         }
 
         case 5:
         {
             int n;
-            cout << "Enter n: ";
+
+            cout << "Enter number: ";
             cin >> n;
 
-            cout << "Factorial = " << factorial(n) << endl;
+            cout << "Factorial = " << factorial(n);
             break;
         }
 
         case 6:
         {
-            int arr[] = {1, 2, 3, 4, 5};
-            int n = sizeof(arr) / sizeof(arr[0]);
+            int n;
+
+            cout << "Enter size of array: ";
+            cin >> n;
+
+            int arr[n];
+
+            cout << "Enter elements:\n";
+
+            for(int i = 0; i < n; i++)
+                cin >> arr[i];
 
             reverseArray(arr, 0, n - 1);
 
-            cout << "Reversed Array: ";
+            cout << "Reversed Array:\n";
+
             for(int i = 0; i < n; i++)
                 cout << arr[i] << " ";
 
-            cout << endl;
             break;
         }
 
         case 7:
         {
-            string str;
+            int n;
 
-            cin.ignore();
+            cout << "Enter n: ";
+            cin >> n;
 
-            cout << "Enter a string: ";
-            getline(cin, str);
-
-            if(palindrome(str, 0, str.length() - 1))
-                cout << "Palindrome\n";
-            else
-                cout << "Not Palindrome\n";
+            cout << n << "th Fibonacci Number = "
+                 << fibonacci(n);
 
             break;
         }
 
         case 8:
         {
-            int arr[] = {7, 12, 3, 25, 18};
-            int n = sizeof(arr) / sizeof(arr[0]);
+            string str;
 
-            cout << "Maximum = " << maximum(arr, n, 0) << endl;
+            cin.ignore();
+
+            cout << "Enter String: ";
+            getline(cin, str);
+
+            if(palindrome(str, 0, str.length() - 1))
+                cout << "Palindrome";
+            else
+                cout << "Not Palindrome";
+
             break;
         }
 
         case 9:
         {
-            int arr[] = {1, 2, 3};
-            int n = sizeof(arr) / sizeof(arr[0]);
+            int n;
+
+            cout << "Enter size of array: ";
+            cin >> n;
+
+            int arr[n];
+
+            cout << "Enter elements:\n";
+
+            for(int i = 0; i < n; i++)
+                cin >> arr[i];
+
+            cout << "Maximum = "
+                 << maximum(arr, n, 0);
+
+            break;
+        }
+
+        case 10:
+        {
+            int n;
+
+            cout << "Enter size of array: ";
+            cin >> n;
+
+            int arr[n];
+
+            cout << "Enter elements:\n";
+
+            for(int i = 0; i < n; i++)
+                cin >> arr[i];
 
             vector<int> subset;
 
-            cout << "All Subsets:\n";
+            cout << "\nAll Subsets:\n";
+
             printSubsets(arr, n, 0, subset);
+
             break;
         }
 
         default:
-            cout << "Invalid Choice!" << endl;
+            cout << "Invalid Choice!";
     }
 
     return 0;
