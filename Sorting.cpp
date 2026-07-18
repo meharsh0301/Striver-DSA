@@ -38,6 +38,64 @@ void insertionSort(int arr[], int n){
         arr[j + 1] = key;
     }
 }
+
+void merge(int arr[],int low , int mid , int high){
+    vector<int> temp;
+    int left=low;
+    int right = mid+1;
+    while(left<=mid && right<=high){
+        if(arr[left]<=arr[right]){
+            temp.push_back(arr[left]);
+            left++;
+        }
+        else{
+            temp.push_back(arr[right]);
+            right++;
+        }
+    }
+    while(left<=mid){
+        temp.push_back(arr[left]);
+        left++;
+    }
+    while(right<=high){
+        temp.push_back(arr[right]);
+        right++;
+    }
+    for(int i=low; i<=high ; i++){
+        arr[i]= temp[i-low];
+    }
+}
+void mergeSort(int arr[], int low, int high)
+{
+    if (low >= high)
+        return;
+
+    int mid = low + (high - low) / 2;
+
+    mergeSort(arr, low, mid);
+    mergeSort(arr, mid + 1, high);
+
+    merge(arr, low, mid, high);
+}
+int partition(int arr[],int low , int high){
+    int pivot=arr[high];
+    int i=low-1;
+    for(int j=low ; j<high ; j++){
+        if(arr[j]<pivot){
+            i++;
+            swap(arr[i],arr[j]);
+        }
+    }
+    swap(arr[i+1],arr[high]);
+    return i+1;
+}
+void quickSort(int arr[],int low , int high){
+    if(low<high){
+        int pIndex=partition(arr , low, high);
+        quickSort(arr , low , pIndex-1);
+        quickSort(arr , pIndex+1 , high);
+    }
+}
 int main() {
     int n;
     cout << "Enter the number of elements in an array: ";
@@ -57,8 +115,8 @@ int main() {
     int choice;
 
     cout << "\n\n===== MENU =====\n";
-    cout << "Choose the following sorting technique:\n";
-    cout << "1.Selection Sort\n2.Bubble sort\n3.Insertion sort\n";
+    cout << "1.Selection Sort\n2.Bubble sort\n3.Insertion sort\n3.Merge sort\n4.Quick sort\n";
+    cout << "Choose the following sorting technique:";
     cin >> choice;
 
     switch (choice) {
@@ -70,6 +128,12 @@ int main() {
         break;
     case 3:
         insertionSort(arr, n);
+        break;
+    case 4:
+        mergeSort(arr,0, n-1);
+        break;
+    case 5:
+        quickSort(arr,0, n-1);
         break;
     default:
         cout << "Invalid input! Try again.\n";
